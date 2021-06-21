@@ -1,4 +1,6 @@
 #pragma once
+#ifndef COLOR_BOUNDS_H
+
 #include <vector>
 using namespace std;
 
@@ -31,3 +33,5 @@ vector<int> ORANGE_UPPER_BOUND{ 24, 255, 255 };
 
 vector<int> GRAY_LOWER_BOUND{ 0, 0, 40 };
 vector<int> GRAY_UPPER_BOUND{ 180, 18, 230 };
+
+#endif
