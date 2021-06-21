@@ -27,8 +27,7 @@ int main()
 
 
 	Mat image2, image3;
-	gray_scale_image(image1, image2);
-	binary_band_threshold_image(image2, image3, 150, 200);
+	detect_color(image1, image3, RED2_LOWER_BOUND, RED2_UPPER_BOUND);
 
 	imshow("original img 1 ", image1);
 	imshow("original img 3 ", image3);
