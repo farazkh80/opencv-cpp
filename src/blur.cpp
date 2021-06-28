@@ -4,7 +4,7 @@
 #include <opencv2/imgcodecs.hpp>
 #include <opencv2/imgproc.hpp>
 
-#include "blur.h"
+#include "../inc/blur.h"
 
 using namespace std;
 using namespace cv;

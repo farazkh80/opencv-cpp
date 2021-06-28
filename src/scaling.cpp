@@ -4,7 +4,7 @@
 #include <opencv2/imgcodecs.hpp>
 #include <opencv2/imgproc.hpp>
 
-#include "scaling.h"
+#include "../inc/scaling.h"
 
 using namespace std;
 using namespace cv;
