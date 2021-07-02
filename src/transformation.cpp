@@ -29,10 +29,6 @@ void affline_transform(Mat& org_image, Mat& transformed_image) {
 	// Apply the affine transformation on the image
 	warpAffine(org_image, transformed_image, affineMatrix, org_image.size());
 
-	//show the image
-	imshow("Plate Transformation", transformed_image);
-
-	waitKey(0);
 }
 
 //// Perspective Transformation of snooker table
@@ -53,11 +49,6 @@ void prespective_transform(Mat& org_image, Mat& transformed_image) {
 	Mat perspectiveMatrix = getPerspectiveTransform(pointsSnooker, destinationSnooker);
 	// Apply the perspective transformatin on the image
 	warpPerspective(org_image, transformed_image, perspectiveMatrix, transformed_image.size());
-
-	// Show image
-	imshow("Perspective Transformation", transformed_image);
-
-	waitKey(0);
 
 }
 
