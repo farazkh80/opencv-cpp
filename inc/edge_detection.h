@@ -1,8 +1,6 @@
 #pragma once
 #ifndef EDGE_DETECTION_H
 
-#include <opencv2/core.hpp>
-
 using namespace std;
 using namespace cv;
 

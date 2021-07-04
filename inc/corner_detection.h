@@ -1,9 +1,6 @@
 #pragma once
 #ifndef CORNER_DETECTION_H
 
-#include <iostream>
-#include <opencv2/core.hpp>
-
 using namespace std;
 using namespace cv;
 

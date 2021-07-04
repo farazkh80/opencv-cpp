@@ -16,7 +16,7 @@ vector<Point2f> destinationSnooker;
 
 void platePoints(int event, int x, int y, int flags, void* userdata)
 {
-	if (event == EVENT_LBUTTONDOWN and pointsPlate.size() < 3)
+	if (event == EVENT_LBUTTONDOWN && pointsPlate.size() < 3)
 	{
 		cout << "Plate - position (" << x << ", " << y << ")" << endl;
 		pointsPlate.push_back(Point2f(x, y));
@@ -29,7 +29,7 @@ void platePoints(int event, int x, int y, int flags, void* userdata)
 
 void snookerPoints(int event, int x, int y, int flags, void* userdata)
 {
-	if (event == EVENT_LBUTTONDOWN and pointsSnooker.size() < 4)
+	if (event == EVENT_LBUTTONDOWN && pointsSnooker.size() < 4)
 	{
 		cout << "Snooker - position (" << x << ", " << y << ")" << endl;
 		pointsSnooker.push_back(Point2f(x, y));

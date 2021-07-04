@@ -4,6 +4,7 @@
 #include <opencv2/imgproc.hpp>
 
 #include "../inc/binary_vision.h"
+#include "../inc/scaling.h"
 
 using namespace std;
 using namespace cv;

@@ -1,8 +1,6 @@
 #pragma once
 #ifndef BLUR_H
 
-#include <opencv2/core.hpp>
-
 using namespace std;
 using namespace cv;
 

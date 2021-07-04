@@ -2,8 +2,6 @@
 #ifndef HISTOGRAM_H
 #define HISTOGRAM_H
 
-#include <opencv2/core.hpp>
-
 using namespace std;
 using namespace cv;
 

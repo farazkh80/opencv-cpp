@@ -1,10 +1,6 @@
 #pragma once
 #ifndef BINARY_VISION_H
 
-#include <opencv2/core.hpp>
-
-#include "scaling.h"
-
 using namespace std;
 using namespace cv;
 

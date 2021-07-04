@@ -11,11 +11,6 @@ using namespace cv;
 
 
 //// Affine Transforamtion of number plate
-//// Find points from image and distination points
-//// Number of points needed: 3
-////vector<Point2f> sourcePlate, destinationPlate;
-////sourcePlate = { Point2f(400,250), Point2f(400,320), Point2f(200,330) };
-////destinationPlate = { Point2f(770,350), Point2f(770,450), Point2f(250,370) };
 void affline_transform(Mat& org_image, Mat& transformed_image) {
 	namedWindow("Original Plate", 1);
 	setMouseCallback("Original Plate", platePoints, NULL);
@@ -32,11 +27,6 @@ void affline_transform(Mat& org_image, Mat& transformed_image) {
 }
 
 //// Perspective Transformation of snooker table
-//// Find points from image and distination points
-// //// Number of points needed: 4
-////vector<Point2f> sourceSnooker, destinationSnooker;
-////sourceSnooker = { Point2f(338,645), Point2f(671,650), Point2f(922,916), Point2f(101,919) };
-////destinationSnooker = { Point2f(278,223), Point2f(785,220), Point2f(830,905), Point2f(205,907) };
 void prespective_transform(Mat& org_image, Mat& transformed_image) {
 	namedWindow("Original Snooker", 1);
 	setMouseCallback("Original Snooker", snookerPoints, NULL);
@@ -52,3 +42,71 @@ void prespective_transform(Mat& org_image, Mat& transformed_image) {
 
 }
 
+//// Hough transform lines
+void hough_transform_lines(Mat& org_img, Mat& line_detected_img) {
+	//edge detection
+	Canny(org_img, line_detected_img, 200, 255);
+
+	// hough transform
+	vector<Vec2f> lines;
+	HoughLines(line_detected_img, lines, 1, CV_PI, 150);
+
+	for (size_t i = 0; i < lines.size(); i++)
+	{
+		float rho = lines[i][0], theta = lines[i][1];
+		Point pt1, pt2;
+		double a = cos(theta), b = sin(theta);
+		double x0 = a * rho, y0 = b * rho;
+
+		pt1.x = cvRound(x0 + 1000 * (-b));
+		pt1.y = cvRound(y0 + 1000 * (a));
+		pt2.x = cvRound(x0 - 1000 * (-b));
+		pt2.y = cvRound(y0 - 1000 * (a));
+
+		line(line_detected_img, pt1, pt2, Scalar(0, 0, 255), 3, LINE_AA);
+	}
+}
+
+//// Hough transform lines probabilistic
+void hough_transform_lines_prob(Mat& org_img, Mat& line_detected_img) {
+	// Edge detection
+	Canny(org_img, line_detected_img, 200, 255);
+
+	// Hough transform probabilistic
+	vector<Vec4i> linesP;
+	HoughLinesP(line_detected_img, linesP, 1, CV_PI / 180, 50, 50, 10);
+
+	// Draw the lines
+	for (size_t i = 0; i < linesP.size(); i++)
+	{
+		Vec4i l = linesP[i];
+		line(line_detected_img, Point(l[0], l[1]), Point(l[2], l[3]), Scalar(0, 0, 255), 1, LINE_AA);
+	}
+}
+
+//// Hough transform circles
+void hough_transform_circles(Mat& org_img, Mat& circle_detected_img) {
+	Mat gray;
+	cvtColor(org_img, gray, COLOR_RGB2GRAY);
+
+	medianBlur(gray, gray, 5);
+
+	vector<Vec3f> circles;
+	HoughCircles(gray, circles, HOUGH_GRADIENT, 1,
+		gray.rows / 32,  // change this value to detect circles with different distances to each other
+		100, 20, 1, 15 // change the last two parameters
+   // (min_radius & max_radius) to detect larger circles
+	);
+
+	for (size_t i = 0; i < circles.size(); i++)
+	{
+		Vec3i c = circles[i];
+		Point center = Point(c[0], c[1]);
+		// circle center
+		circle(circle_detected_img, center, 1, Scalar(0, 100, 100), 3, LINE_AA);
+		// circle outline
+		int radius = c[2];
+
+		circle(circle_detected_img, center, radius, Scalar(255, 0, 255), 3, LINE_AA);
+	}
+}
